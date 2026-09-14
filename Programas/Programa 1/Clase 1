@@ -1,0 +1,20 @@
+using System;
+using System.Text.RegularExpressions;
+    
+public static class Utilidades
+ {
+   public static bool EscorreoValido(string email)
+    {
+      if (EstaEnBlanco(email))
+       {
+            return false;
+       }
+       string patron = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+       return Regex.IsMatch(email, patron); // Corregido: se usó 'email' en lugar de 'mail'
+    }
+
+   public static bool EstaEnBlanco(string Texto)
+    {
+        return string.IsNullOrWhiteSpace(Texto);
+    }
+ }
