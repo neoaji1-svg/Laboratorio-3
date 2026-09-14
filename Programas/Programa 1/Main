@@ -1,0 +1,109 @@
+using System;
+using System.Collections;
+using System.Windows.Forms;
+
+
+namespace Lawealoca
+{
+    public partial class Form1 : Form
+    {
+        // Se utiliza BindingList para que el DataGridView refresque automáticamente los elementos
+        ArrayList listaPersonas = new ArrayList();
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            Persona miColaborador1 = new Persona();
+            miColaborador1.Id = 1;
+            miColaborador1.Nombres = "Elena Carolina";
+            miColaborador1.Apellidos = "Gonzalez Rodríguez";
+            miColaborador1.Correo = "elena.gonzalez@ejemplo.com";
+            miColaborador1.FechaNacimiento = new DateTime(1990, 5, 15);
+
+            listaPersonas.Add(miColaborador1);
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            if (txtID.Text == "")
+            {
+                errorProvider1.SetError(txtID, "Ingrese un ID");
+                txtID.Focus();
+                return;
+            }
+            else
+            {
+                errorProvider1.SetError(txtID, "");
+            }
+
+            // Corregido: '==' en lugar de '='
+            if (txtNombres.Text == "")
+            {
+                errorProvider1.SetError(txtNombres, "Ingrese el nombre del colaborador");
+                txtNombres.Focus();
+                return;
+            }
+            else
+            {
+                // Corregido: 'errorProvider1' con e minúscula
+                errorProvider1.SetError(txtNombres, "");
+            }
+
+            // Corregido: '==' en lugar de '='
+            if (txtApellidos.Text == "")
+            {
+                errorProvider1.SetError(txtApellidos, "Ingrese los apellidos del colaborador");
+                txtApellidos.Focus();
+                return;
+            }
+            else
+            {
+                errorProvider1.SetError(txtApellidos, "");
+            }
+
+            if (Utilidades.EscorreoValido(txtCorreo.Text) == false)
+            {
+                errorProvider1.SetError(txtCorreo, "Ingrese un correo valido");
+                txtCorreo.Focus();
+                return;
+            }
+            else
+            {
+                errorProvider1.SetError(txtCorreo, "");
+            }
+
+            decimal salario1;
+            if (!decimal.TryParse(txtSalario.Text, out salario1))
+            {
+                errorProvider1.SetError(txtSalario, "Ingrese un salario valido");
+                txtSalario.Focus();
+                return;
+            }
+            else
+            {
+                errorProvider1.SetError(txtSalario, "");
+            }
+
+            // Corregido: Instanciación del objeto Persona
+            Persona Colaborador1 = new Persona();
+            Colaborador1.Id = int.Parse(txtID.Text);
+            Colaborador1.Nombres = txtNombres.Text;
+            Colaborador1.Apellidos = txtApellidos.Text; // Corregido: 'Apellidos' en plural
+            Colaborador1.Correo = txtCorreo.Text;
+            Colaborador1.Salario = salario1;
+            Colaborador1.FechaNacimiento = dtpFechaNacimiento.Value;
+            listaPersonas.Add(Colaborador1);
+            dgvdatos.DataSource = null;
+            dgvdatos.DataSource = listaPersonas;
+        }
+    }
+}
