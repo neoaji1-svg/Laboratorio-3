@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Fromulario
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+
+            // 1.Busca si la ventana FormHijoTexto ya está abierta
+            FormHijoTexto ventanaTexto = Application.OpenForms.OfType<FormHijoTexto>().FirstOrDefault();
+
+            if (ventanaTexto != null)
+            {
+                // Si ya está abierta, la trae al frente y le da el foco
+                ventanaTexto.BringToFront();
+                ventanaTexto.Focus();
+            }
+            else
+            {
+                // Si no existe, crea una nueva instancia y la muestra
+                ventanaTexto = new FormHijoTexto();
+                ventanaTexto.MdiParent = this;
+                ventanaTexto.Show();
+            }
+
+        }
+    }
+}
